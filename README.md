@@ -8,6 +8,75 @@
 
 Gemini CLI is an open-source AI agent that brings the power of Gemini directly into your terminal. It provides lightweight access to Gemini, giving you the most direct path from your prompt to our model.
 
+## 🏠 Ollama Fork - Local AI Models
+
+**This is a community fork of Google's Gemini CLI that adds support for local Ollama models!**
+
+### 🔗 What is this fork?
+
+This fork extends the original Gemini CLI to work with **Ollama** - allowing you to run powerful language models completely locally on your own hardware. Perfect for:
+
+- **🔒 Privacy-focused development** - Keep your code and conversations 100% local
+- **🌐 Offline workflows** - Work without internet connectivity  
+- **🏢 Enterprise environments** - Use behind corporate firewalls and intranet
+- **💰 Cost-effective** - No API costs, unlimited usage with your own models
+- **🎛️ Model flexibility** - Use any Ollama-supported model (Llama, Qwen, Mistral, CodeLlama, etc.)
+
+### 🚀 Quick Ollama Setup
+
+1. **Install and start Ollama** on your local machine or server:
+   ```bash
+   # Install Ollama (see https://ollama.ai for other platforms)
+   curl -fsSL https://ollama.ai/install.sh | sh
+   
+   # Pull a model (example with CodeLlama)
+   ollama pull codellama:13b
+   
+   # Start Ollama server
+   ollama serve
+   ```
+
+2. **Configure this fork to use Ollama**:
+   ```bash
+   # Set environment variables
+   export AUTH_METHOD=ollama
+   export OLLAMA_HOST=http://localhost:11434
+   export OLLAMA_MODEL=codellama:13b
+   export OLLAMA_EMBEDDING_MODEL=nomic-embed-text
+   
+   # Run the CLI
+   gemini
+   ```
+
+3. **For remote Ollama servers** (like your intranet setup):
+   ```bash
+   export AUTH_METHOD=ollama
+   export OLLAMA_HOST=http://192.168.50.105:11434
+   export OLLAMA_MODEL=positron3:8b
+   
+   gemini
+   ```
+
+### 🎯 Ollama Benefits
+
+- **🏠 Self-hosted** - Complete control over your AI infrastructure
+- **🔐 Privacy first** - No data leaves your network
+- **⚡ Fast inference** - Direct access to your local GPU/CPU
+- **🔧 Customizable** - Use any model that fits your needs
+- **📦 Easy deployment** - Simple Docker setup for teams
+
+### 🔄 Compatibility
+
+This fork maintains **100% compatibility** with the original Gemini CLI features while adding Ollama support:
+
+- ✅ All original commands and features work unchanged
+- ✅ Can switch between Gemini API and Ollama seamlessly
+- ✅ Same authentication options (OAuth, API keys) for Gemini
+- ✅ MCP servers, tools, and extensions work identically
+- ✅ Drop-in replacement - same installation and usage
+
+---
+
 ## 🚀 Why Gemini CLI?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google account
@@ -77,6 +146,32 @@ Integrate Gemini CLI directly into your GitHub workflows with [**Gemini CLI GitH
 ## 🔐 Authentication Options
 
 Choose the authentication method that best fits your needs:
+
+### Option 0: Ollama (Local Models) 🆕
+
+**✨ Best for:** Privacy-focused development, offline work, enterprise environments, cost-effective unlimited usage
+
+**Benefits:**
+
+- **🔒 Complete privacy** - No data leaves your network
+- **💰 Zero API costs** - Unlimited usage with your own hardware
+- **🌐 Offline capable** - Works without internet connectivity
+- **🎛️ Model choice** - Use any Ollama-supported model
+- **⚡ Local performance** - Direct GPU/CPU access
+
+```bash
+# Setup Ollama server (one-time)
+ollama pull codellama:13b  # or any other model
+ollama serve
+
+# Configure environment
+export AUTH_METHOD=ollama
+export OLLAMA_HOST=http://localhost:11434
+export OLLAMA_MODEL=codellama:13b
+
+# Start using local models
+gemini
+```
 
 ### Option 1: OAuth login (Using your Google Account)
 

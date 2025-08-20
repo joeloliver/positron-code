@@ -183,4 +183,18 @@ export class LoggingContentGenerator implements ContentGenerator {
   ): Promise<EmbedContentResponse> {
     return this.wrapped.embedContent(req);
   }
+
+  // Pass through generateJson if the wrapped generator has it
+  async generateJson(
+    contents: Content[],
+    schema: Record<string, unknown>,
+    abortSignal: AbortSignal,
+    model?: string,
+    config?: any,
+  ): Promise<any> {
+    if ('generateJson' in this.wrapped && typeof (this.wrapped as any).generateJson === 'function') {
+      return (this.wrapped as any).generateJson(contents, schema, abortSignal, model, config);
+    }
+    throw new Error('generateJson not supported by wrapped content generator');
+  }
 }
