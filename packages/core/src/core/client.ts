@@ -567,6 +567,21 @@ export class GeminiClient {
     const modelToUse =
       model || this.config.getModel() || DEFAULT_GEMINI_FLASH_MODEL;
     try {
+      // Check if we're using Ollama
+      const contentGeneratorConfig = this.config.getContentGeneratorConfig();
+      const isOllama = contentGeneratorConfig?.authType === AuthType.USE_OLLAMA;
+      
+      if (isOllama && this.contentGenerator && 'generateJson' in this.contentGenerator) {
+        // Use Ollama's generateJson method directly
+        return await (this.contentGenerator as any).generateJson(
+          contents,
+          schema,
+          abortSignal,
+          modelToUse,
+          config,
+        );
+      }
+
       const userMemory = this.config.getUserMemory();
       const systemInstruction = getCoreSystemPrompt(userMemory);
       const requestConfig = {

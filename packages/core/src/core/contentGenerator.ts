@@ -20,6 +20,7 @@ import { Config } from '../config/config.js';
 import { UserTierId } from '../code_assist/types.js';
 import { LoggingContentGenerator } from './loggingContentGenerator.js';
 import { getInstallationId } from '../utils/user_id.js';
+import { OllamaContentGenerator } from './ollamaContentGenerator.js';
 
 /**
  * Interface abstracting the core functionalities for generating content and counting tokens.
@@ -47,6 +48,7 @@ export enum AuthType {
   USE_GEMINI = 'gemini-api-key',
   USE_VERTEX_AI = 'vertex-ai',
   CLOUD_SHELL = 'cloud-shell',
+  USE_OLLAMA = 'ollama',
 }
 
 export type ContentGeneratorConfig = {
@@ -55,6 +57,8 @@ export type ContentGeneratorConfig = {
   vertexai?: boolean;
   authType?: AuthType | undefined;
   proxy?: string | undefined;
+  ollamaEndpoint?: string;
+  ollamaEmbeddingModel?: string;
 };
 
 export function createContentGeneratorConfig(
@@ -65,9 +69,14 @@ export function createContentGeneratorConfig(
   const googleApiKey = process.env['GOOGLE_API_KEY'] || undefined;
   const googleCloudProject = process.env['GOOGLE_CLOUD_PROJECT'] || undefined;
   const googleCloudLocation = process.env['GOOGLE_CLOUD_LOCATION'] || undefined;
+  const ollamaHost = process.env['OLLAMA_HOST'] || 'http://localhost:11434';
+  const ollamaModel = process.env['OLLAMA_MODEL'] || 'llama3.3';
+  const ollamaEmbeddingModel = process.env['OLLAMA_EMBEDDING_MODEL'] || 'nomic-embed-text';
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
-  const effectiveModel = config.getModel() || DEFAULT_GEMINI_MODEL;
+  const effectiveModel = authType === AuthType.USE_OLLAMA 
+    ? ollamaModel 
+    : (config.getModel() || DEFAULT_GEMINI_MODEL);
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     model: effectiveModel,
@@ -97,6 +106,12 @@ export function createContentGeneratorConfig(
     contentGeneratorConfig.apiKey = googleApiKey;
     contentGeneratorConfig.vertexai = true;
 
+    return contentGeneratorConfig;
+  }
+
+  if (authType === AuthType.USE_OLLAMA) {
+    contentGeneratorConfig.ollamaEndpoint = ollamaHost;
+    contentGeneratorConfig.ollamaEmbeddingModel = ollamaEmbeddingModel;
     return contentGeneratorConfig;
   }
 
@@ -151,6 +166,16 @@ export async function createContentGenerator(
     });
     return new LoggingContentGenerator(googleGenAI.models, gcConfig);
   }
+
+  if (config.authType === AuthType.USE_OLLAMA) {
+    const ollamaGenerator = new OllamaContentGenerator({
+      baseUrl: config.ollamaEndpoint || 'http://localhost:11434',
+      model: config.model,
+      embeddingModel: config.ollamaEmbeddingModel,
+    });
+    return new LoggingContentGenerator(ollamaGenerator, gcConfig);
+  }
+
   throw new Error(
     `Error creating contentGenerator: Unsupported authType: ${config.authType}`,
   );

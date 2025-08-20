@@ -9,6 +9,10 @@ import { USER_SETTINGS_PATH } from './config/settings.js';
 import { validateAuthMethod } from './config/auth.js';
 
 function getAuthTypeFromEnv(): AuthType | undefined {
+  // Check AUTH_METHOD first for explicit configuration
+  if (process.env['AUTH_METHOD'] === 'ollama') {
+    return AuthType.USE_OLLAMA;
+  }
   if (process.env['GOOGLE_GENAI_USE_GCA'] === 'true') {
     return AuthType.LOGIN_WITH_GOOGLE;
   }
@@ -17,6 +21,9 @@ function getAuthTypeFromEnv(): AuthType | undefined {
   }
   if (process.env['GEMINI_API_KEY']) {
     return AuthType.USE_GEMINI;
+  }
+  if (process.env['OLLAMA_HOST']) {
+    return AuthType.USE_OLLAMA;
   }
   return undefined;
 }
@@ -30,7 +37,7 @@ export async function validateNonInteractiveAuth(
 
   if (!effectiveAuthType) {
     console.error(
-      `Please set an Auth method in your ${USER_SETTINGS_PATH} or specify one of the following environment variables before running: GEMINI_API_KEY, GOOGLE_GENAI_USE_VERTEXAI, GOOGLE_GENAI_USE_GCA`,
+      `Please set an Auth method in your ${USER_SETTINGS_PATH} or specify one of the following environment variables before running: GEMINI_API_KEY, GOOGLE_GENAI_USE_VERTEXAI, GOOGLE_GENAI_USE_GCA, OLLAMA_HOST`,
     );
     process.exit(1);
   }
