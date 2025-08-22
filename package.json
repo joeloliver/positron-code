@@ -51,7 +51,7 @@
     "clean": "node scripts/clean.js"
   },
   "bin": {
-    "gemini": "bundle/gemini.js"
+    "positron": "bundle/positron.js"
   },
   "files": [
     "bundle/",
