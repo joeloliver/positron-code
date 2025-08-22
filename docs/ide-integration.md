@@ -133,7 +133,7 @@ If you encounter issues with IDE integration, here are some common error message
 ### General Errors
 
 - **Message:** `IDE integration is not supported in your current environment. To use this feature, run Gemini CLI in one of these supported IDEs: [List of IDEs]`
-  - **Cause:** You are running Gemini CLI in a terminal or environment that is not a supported IDE.
+  - **Cause:** You are running Positron CLI in a terminal or environment that is not a supported IDE.
   - **Solution:** Run Gemini CLI from the integrated terminal of a supported IDE, like VS Code.
 
 - **Message:** `No installer is available for [IDE Name]. Please install the IDE companion manually from its marketplace.`
