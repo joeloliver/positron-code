@@ -111,7 +111,7 @@ export const ContextSummaryDisplay: React.FC<ContextSummaryDisplayProps> = ({
 
   return (
     <Box>
-      <Text color={Colors.Gray}>Using: {summaryParts.join(' | ')}</Text>
+      <Text color={Colors.Gray}>Using: POSITRON.md ({summaryParts.join(' | ')})</Text>
     </Box>
   );
 };
