@@ -539,6 +539,11 @@ export async function loadCliConfig(
     folderTrust,
     interactive,
     trustedFolder,
+    // Ollama settings
+    ollamaHost: settings.ollamaHost,
+    ollamaModel: settings.ollamaModel,
+    ollamaEmbeddingModel: settings.ollamaEmbeddingModel,
+    ollamaToken: settings.ollamaToken,
   });
 }
 

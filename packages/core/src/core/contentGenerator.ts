@@ -70,10 +70,12 @@ export function createContentGeneratorConfig(
   const googleApiKey = process.env['GOOGLE_API_KEY'] || undefined;
   const googleCloudProject = process.env['GOOGLE_CLOUD_PROJECT'] || undefined;
   const googleCloudLocation = process.env['GOOGLE_CLOUD_LOCATION'] || undefined;
-  const ollamaHost = process.env['OLLAMA_HOST'] || 'http://localhost:11434';
-  const ollamaModel = process.env['OLLAMA_MODEL'] || 'llama3.3';
-  const ollamaEmbeddingModel = process.env['OLLAMA_EMBEDDING_MODEL'] || 'nomic-embed-text';
-  const ollamaToken = process.env['OLLAMA_TOKEN'] || undefined;
+  
+  // Ollama configuration with settings fallback to environment variables
+  const ollamaHost = config.getOllamaHost() || process.env['OLLAMA_HOST'] || 'http://localhost:11434';
+  const ollamaModel = config.getOllamaModel() || process.env['OLLAMA_MODEL'] || 'llama3.3';
+  const ollamaEmbeddingModel = config.getOllamaEmbeddingModel() || process.env['OLLAMA_EMBEDDING_MODEL'] || 'nomic-embed-text';
+  const ollamaToken = config.getOllamaToken() || process.env['OLLAMA_TOKEN'] || undefined;
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
   const effectiveModel = authType === AuthType.USE_OLLAMA 

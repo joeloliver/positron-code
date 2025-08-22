@@ -57,6 +57,15 @@ export const useAuthCommand = (
         await clearCachedCredentialFile();
 
         settings.setValue(scope, 'selectedAuthType', authType);
+        
+        // Add default Ollama settings when Ollama is selected
+        if (authType === AuthType.USE_OLLAMA) {
+          settings.setValue(scope, 'ollamaHost', 'http://localhost:11434');
+          settings.setValue(scope, 'ollamaModel', 'llama3.3');
+          settings.setValue(scope, 'ollamaEmbeddingModel', 'nomic-embed-text');
+          // Note: ollamaToken is intentionally not set, user can add it manually if needed
+        }
+        
         if (
           authType === AuthType.LOGIN_WITH_GOOGLE &&
           config.isBrowserLaunchSuppressed()

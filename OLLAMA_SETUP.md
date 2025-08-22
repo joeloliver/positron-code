@@ -19,7 +19,30 @@ This guide explains how to configure gemini-cli to use your local Ollama models 
 
 ## Configuration
 
-### Environment Variables
+You can configure Ollama using either environment variables or the `settings.json` file.
+
+### Option 1: Using settings.json (Recommended)
+
+Add these settings to your `~/.positron/settings.json` (user-level) or `./.positron/settings.json` (project-level):
+
+```json
+{
+  "selectedAuthType": "use_ollama",
+  "ollamaHost": "http://server.joeloliver.com:11434",
+  "ollamaModel": "positron3:8b",
+  "ollamaEmbeddingModel": "nomic-embed-text",
+  "ollamaToken": "your-auth-token"
+}
+```
+
+**Configuration Priority (highest to lowest):**
+1. **Settings file values** (`~/.positron/settings.json`)
+2. **Environment variables** (`OLLAMA_HOST`, `OLLAMA_MODEL`, etc.)
+3. **Default values** (`http://localhost:11434`, `llama3.3`, etc.)
+
+This means you can mix and match - for example, set the host in settings but override the model with an environment variable.
+
+### Option 2: Environment Variables
 
 Create a `.env` file in your project root or set these environment variables:
 

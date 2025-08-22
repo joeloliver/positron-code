@@ -202,6 +202,11 @@ export interface ConfigParameters {
   chatCompression?: ChatCompressionSettings;
   interactive?: boolean;
   trustedFolder?: boolean;
+  // Ollama settings
+  ollamaHost?: string;
+  ollamaModel?: string;
+  ollamaEmbeddingModel?: string;
+  ollamaToken?: string;
 }
 
 export class Config {
@@ -268,6 +273,11 @@ export class Config {
   private readonly interactive: boolean;
   private readonly trustedFolder: boolean | undefined;
   private initialized: boolean = false;
+  // Ollama settings
+  private readonly ollamaHost?: string;
+  private readonly ollamaModel?: string;
+  private readonly ollamaEmbeddingModel?: string;
+  private readonly ollamaToken?: string;
 
   constructor(params: ConfigParameters) {
     this.sessionId = params.sessionId;
@@ -334,6 +344,11 @@ export class Config {
     this.chatCompression = params.chatCompression;
     this.interactive = params.interactive ?? false;
     this.trustedFolder = params.trustedFolder;
+    // Initialize Ollama settings
+    this.ollamaHost = params.ollamaHost;
+    this.ollamaModel = params.ollamaModel;
+    this.ollamaEmbeddingModel = params.ollamaEmbeddingModel;
+    this.ollamaToken = params.ollamaToken;
 
     if (params.contextFileName) {
       setGeminiMdFilename(params.contextFileName);
@@ -640,6 +655,23 @@ export class Config {
 
   getUsageStatisticsEnabled(): boolean {
     return this.usageStatisticsEnabled;
+  }
+
+  // Ollama getters
+  getOllamaHost(): string | undefined {
+    return this.ollamaHost;
+  }
+
+  getOllamaModel(): string | undefined {
+    return this.ollamaModel;
+  }
+
+  getOllamaEmbeddingModel(): string | undefined {
+    return this.ollamaEmbeddingModel;
+  }
+
+  getOllamaToken(): string | undefined {
+    return this.ollamaToken;
   }
 
   getExtensionContextFilePaths(): string[] {

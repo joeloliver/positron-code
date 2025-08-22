@@ -38,7 +38,23 @@ This fork extends the original Gemini CLI to work with **Ollama** - allowing you
    ollama serve
    ```
 
-2. **Configure this fork to use Ollama**:
+2. **Configure Positron Code to use Ollama**:
+   
+   **Option A: Using settings file (recommended)**
+   ```bash
+   # Create ~/.positron/settings.json
+   {
+     "selectedAuthType": "use_ollama",
+     "ollamaHost": "http://localhost:11434",
+     "ollamaModel": "codellama:13b",
+     "ollamaEmbeddingModel": "nomic-embed-text"
+   }
+   
+   # Run the CLI
+   positron
+   ```
+   
+   **Option B: Using environment variables**
    ```bash
    # Set environment variables
    export AUTH_METHOD=ollama
@@ -51,6 +67,18 @@ This fork extends the original Gemini CLI to work with **Ollama** - allowing you
    ```
 
 3. **For remote Ollama servers** (like your intranet setup):
+   
+   **Settings file:**
+   ```json
+   {
+     "selectedAuthType": "use_ollama",
+     "ollamaHost": "http://server.joeloliver.com:11434",
+     "ollamaModel": "positron3:8b",
+     "ollamaToken": "your-auth-token"  // Optional: if your server requires authentication
+   }
+   ```
+   
+   **Or environment variables:**
    ```bash
    export AUTH_METHOD=ollama
    export OLLAMA_HOST=http://server.joeloliver.com:11434
@@ -333,7 +361,7 @@ gemini
 
 ### Using MCP Servers
 
-Configure MCP servers in `~/.gemini/settings.json` to extend Gemini CLI with custom tools:
+Configure MCP servers in `~/.positron/settings.json` to extend Positron Code with custom tools:
 
 ```text
 > @github List my open pull requests
