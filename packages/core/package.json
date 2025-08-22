@@ -1,11 +1,16 @@
 {
   "name": "@google/gemini-cli-core",
-  "version": "0.1.21",
-  "description": "Gemini CLI Core",
+  "version": "1.0.0",
+  "description": "Positron Code Core Library",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/google-gemini/gemini-cli.git"
+    "url": "git+https://github.com/joeloliver/positron-code.git"
   },
+  "author": {
+    "name": "Joel Oliver",
+    "email": "joel2oliver@gmail.com"
+  },
+  "license": "Apache-2.0",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {

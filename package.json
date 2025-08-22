@@ -1,6 +1,6 @@
 {
-  "name": "@google/gemini-cli",
-  "version": "0.1.21",
+  "name": "positron-code",
+  "version": "1.0.0",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -8,13 +8,31 @@
   "workspaces": [
     "packages/*"
   ],
-  "private": "true",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/google-gemini/gemini-cli.git"
+    "url": "git+https://github.com/joeloliver/positron-code.git"
   },
+  "author": {
+    "name": "Joel Oliver",
+    "email": "joel2oliver@gmail.com"
+  },
+  "keywords": [
+    "ai",
+    "cli",
+    "positron",
+    "llm",
+    "ollama",
+    "assistant",
+    "code",
+    "development"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/joeloliver/positron-code/issues"
+  },
+  "homepage": "https://github.com/joeloliver/positron-code#readme",
   "config": {
-    "sandboxImageUri": "us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.21"
+    "sandboxImageUri": "TODO: sandbox image URI to be configured"
   },
   "scripts": {
     "start": "node scripts/start.js",

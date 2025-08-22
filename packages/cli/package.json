@@ -1,15 +1,20 @@
 {
   "name": "@google/gemini-cli",
-  "version": "0.1.21",
-  "description": "Gemini CLI",
+  "version": "1.0.0",
+  "description": "Positron Code CLI - AI-powered coding assistant",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/google-gemini/gemini-cli.git"
+    "url": "git+https://github.com/joeloliver/positron-code.git"
   },
+  "author": {
+    "name": "Joel Oliver",
+    "email": "joel2oliver@gmail.com"
+  },
+  "license": "Apache-2.0",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "gemini": "dist/index.js"
+    "positron": "dist/index.js"
   },
   "scripts": {
     "build": "node ../../scripts/build_package.js",
@@ -25,7 +30,7 @@
     "dist"
   ],
   "config": {
-    "sandboxImageUri": "us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.21"
+    "sandboxImageUri": "TODO: sandbox image URI to be configured"
   },
   "dependencies": {
     "@google/gemini-cli-core": "file:../core",

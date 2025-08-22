@@ -1,20 +1,22 @@
-# Gemini CLI
+# Positron Code
 
-[![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
+[![Positron Code CI](https://github.com/joeloliver/positron-code/actions/workflows/ci.yml/badge.svg)](https://github.com/joeloliver/positron-code/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/npm/v/positron-code)](https://www.npmjs.com/package/positron-code)
+[![License](https://img.shields.io/github/license/joeloliver/positron-code)](https://github.com/joeloliver/positron-code/blob/main/LICENSE)
 
-![Gemini CLI Screenshot](./docs/assets/gemini-screenshot.png)
+![Positron Code Screenshot](./docs/assets/gemini-screenshot.png)
 
-Gemini CLI is an open-source AI agent that brings the power of Gemini directly into your terminal. It provides lightweight access to Gemini, giving you the most direct path from your prompt to our model.
+Positron Code is a community fork of Google's [Gemini CLI](https://github.com/google-gemini/gemini-cli) that extends it with support for local/remote Ollama models. It maintains full compatibility with the original Gemini CLI while adding the ability to run powerful language models locally on your own hardware or remote servers.
 
-## 🏠 Ollama Fork - Local AI Models
+> **⚠️ Note:** The sandbox Docker image URI is currently being configured. This feature will be available in a future release.
 
-**This is a community fork of Google's Gemini CLI that adds support for local Ollama models!**
+## 🏠 Ollama Support - Local & Remote AI Models
+
+**Positron Code is a fork of Google's Gemini CLI that adds support for Ollama models!**
 
 ### 🔗 What is this fork?
 
-This fork extends the original Gemini CLI to work with **Ollama** - allowing you to run powerful language models completely locally on your own hardware. Perfect for:
+This fork extends the original Gemini CLI to work with **Ollama** - allowing you to run powerful language models locally on your own hardware or on remote servers. It retains all the original Gemini CLI features while adding Ollama support. Perfect for:
 
 - **🔒 Privacy-focused development** - Keep your code and conversations 100% local
 - **🌐 Offline workflows** - Work without internet connectivity  
@@ -45,7 +47,7 @@ This fork extends the original Gemini CLI to work with **Ollama** - allowing you
    export OLLAMA_EMBEDDING_MODEL=nomic-embed-text
    
    # Run the CLI
-   gemini
+   positron
    ```
 
 3. **For remote Ollama servers** (like your intranet setup):
@@ -54,7 +56,7 @@ This fork extends the original Gemini CLI to work with **Ollama** - allowing you
    export OLLAMA_HOST=http://192.168.50.105:11434
    export OLLAMA_MODEL=positron3:8b
    
-   gemini
+   positron
    ```
 
 ### 🎯 Ollama Benefits
@@ -77,7 +79,7 @@ This fork maintains **100% compatibility** with the original Gemini CLI features
 
 ---
 
-## 🚀 Why Gemini CLI?
+## 🚀 Why Use This Fork?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google account
 - **🧠 Powerful Gemini 2.5 Pro**: Access to 1M token context window
@@ -94,19 +96,21 @@ This fork maintains **100% compatibility** with the original Gemini CLI features
 
 ```bash
 # Using npx (no installation required)
-npx https://github.com/google-gemini/gemini-cli
+npx positron-code
 ```
 
 #### Install globally with npm
 
 ```bash
-npm install -g @google/gemini-cli
+npm install -g positron-code
 ```
 
 #### Install globally with Homebrew (macOS/Linux)
 
 ```bash
-brew install gemini-cli
+# Homebrew formula coming soon
+# For now, use npm:
+npm install -g positron-code
 ```
 
 #### System Requirements
@@ -371,5 +375,6 @@ See the [Uninstall Guide](docs/Uninstall.md) for removal instructions.
 ---
 
 <p align="center">
-  Built with ❤️ by Google and the open source community
+  Forked with ❤️ by Joel Oliver from Google's Gemini CLI<br>
+  Original project by Google and the open source community
 </p>
