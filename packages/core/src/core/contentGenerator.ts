@@ -59,6 +59,7 @@ export type ContentGeneratorConfig = {
   proxy?: string | undefined;
   ollamaEndpoint?: string;
   ollamaEmbeddingModel?: string;
+  ollamaAuthToken?: string;
 };
 
 export function createContentGeneratorConfig(
@@ -72,6 +73,7 @@ export function createContentGeneratorConfig(
   const ollamaHost = process.env['OLLAMA_HOST'] || 'http://localhost:11434';
   const ollamaModel = process.env['OLLAMA_MODEL'] || 'llama3.3';
   const ollamaEmbeddingModel = process.env['OLLAMA_EMBEDDING_MODEL'] || 'nomic-embed-text';
+  const ollamaToken = process.env['OLLAMA_TOKEN'] || undefined;
 
   // Use runtime model from config if available; otherwise, fall back to parameter or default
   const effectiveModel = authType === AuthType.USE_OLLAMA 
@@ -112,6 +114,7 @@ export function createContentGeneratorConfig(
   if (authType === AuthType.USE_OLLAMA) {
     contentGeneratorConfig.ollamaEndpoint = ollamaHost;
     contentGeneratorConfig.ollamaEmbeddingModel = ollamaEmbeddingModel;
+    contentGeneratorConfig.ollamaAuthToken = ollamaToken;
     return contentGeneratorConfig;
   }
 
@@ -172,6 +175,7 @@ export async function createContentGenerator(
       baseUrl: config.ollamaEndpoint || 'http://localhost:11434',
       model: config.model,
       embeddingModel: config.ollamaEmbeddingModel,
+      authToken: config.ollamaAuthToken,
     });
     return new LoggingContentGenerator(ollamaGenerator, gcConfig);
   }

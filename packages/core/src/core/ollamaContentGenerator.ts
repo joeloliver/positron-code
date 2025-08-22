@@ -66,16 +66,19 @@ export class OllamaContentGenerator implements ContentGenerator {
   private baseUrl: string;
   private model: string;
   private embeddingModel: string;
+  private authToken?: string;
   public userTier?: UserTierId;
 
   constructor(config: {
     baseUrl: string;
     model: string;
     embeddingModel?: string;
+    authToken?: string;
   }) {
     this.baseUrl = config.baseUrl.replace(/\/$/, ''); // Remove trailing slash
     this.model = config.model;
     this.embeddingModel = config.embeddingModel || 'nomic-embed-text';
+    this.authToken = config.authToken;
     
     // Validate connection on initialization
     this.validateConnection().catch(err => {
@@ -86,8 +89,14 @@ export class OllamaContentGenerator implements ContentGenerator {
 
   private async validateConnection(): Promise<void> {
     try {
+      const headers: HeadersInit = {};
+      if (this.authToken) {
+        headers['Authorization'] = `Bearer ${this.authToken}`;
+      }
+      
       const response = await fetch(`${this.baseUrl}/api/tags`, {
         method: 'GET',
+        headers,
         signal: AbortSignal.timeout(5000), // 5 second timeout
       });
       
@@ -259,11 +268,16 @@ export class OllamaContentGenerator implements ContentGenerator {
       tools: this.convertTools((request as any).tools),
     };
 
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+    if (this.authToken) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
+    }
+
     const response = await fetch(`${this.baseUrl}/api/chat`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(ollamaRequest),
     });
 
@@ -304,11 +318,16 @@ export class OllamaContentGenerator implements ContentGenerator {
       tools: this.convertTools((request as any).tools),
     };
 
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+    if (this.authToken) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
+    }
+
     const response = await fetch(`${this.baseUrl}/api/chat`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(ollamaRequest),
     });
 
@@ -382,11 +401,16 @@ export class OllamaContentGenerator implements ContentGenerator {
       input: text,
     };
 
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+    if (this.authToken) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
+    }
+
     const response = await fetch(`${this.baseUrl}/api/embed`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(ollamaRequest),
     });
 
@@ -447,11 +471,16 @@ Original request:`;
       },
     };
 
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+    };
+    if (this.authToken) {
+      headers['Authorization'] = `Bearer ${this.authToken}`;
+    }
+
     const response = await fetch(`${this.baseUrl}/api/chat`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(ollamaRequest),
     });
 

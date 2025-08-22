@@ -53,8 +53,9 @@ This fork extends the original Gemini CLI to work with **Ollama** - allowing you
 3. **For remote Ollama servers** (like your intranet setup):
    ```bash
    export AUTH_METHOD=ollama
-   export OLLAMA_HOST=http://192.168.50.105:11434
+   export OLLAMA_HOST=http://server.joeloliver.com:11434
    export OLLAMA_MODEL=positron3:8b
+   export OLLAMA_TOKEN=your-auth-token     # Optional: if your server requires authentication
    
    positron
    ```

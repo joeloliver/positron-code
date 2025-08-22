@@ -29,9 +29,10 @@ Create a `.env` file in your project root or set these environment variables:
 export AUTH_METHOD=ollama
 
 # Ollama server configuration
-export OLLAMA_HOST=http://192.168.50.105:11434        # Your intranet server
+export OLLAMA_HOST=http://server.joeloliver.com:11434  # Your remote server
 export OLLAMA_MODEL=positron3:8b                       # Your custom model name
 export OLLAMA_EMBEDDING_MODEL=nomic-embed-text        # Optional: embedding model
+export OLLAMA_TOKEN=your-auth-token                   # Optional: Bearer token for authentication
 ```
 
 #### **Windows (Command Prompt):**
@@ -40,9 +41,10 @@ REM Required: Set auth type to use Ollama
 set AUTH_METHOD=ollama
 
 REM Ollama server configuration
-set OLLAMA_HOST=http://192.168.50.105:11434
+set OLLAMA_HOST=http://server.joeloliver.com:11434
 set OLLAMA_MODEL=positron3:8b
 set OLLAMA_EMBEDDING_MODEL=nomic-embed-text
+set OLLAMA_TOKEN=your-auth-token                      REM Optional: Bearer token for authentication
 ```
 
 #### **Windows (PowerShell):**
@@ -51,9 +53,10 @@ set OLLAMA_EMBEDDING_MODEL=nomic-embed-text
 $env:AUTH_METHOD="ollama"
 
 # Ollama server configuration
-$env:OLLAMA_HOST="http://192.168.50.105:11434"
+$env:OLLAMA_HOST="http://server.joeloliver.com:11434"
 $env:OLLAMA_MODEL="positron3:8b"
 $env:OLLAMA_EMBEDDING_MODEL="nomic-embed-text"
+$env:OLLAMA_TOKEN="your-auth-token"                   # Optional: Bearer token for authentication
 ```
 
 ### Example .env file
@@ -61,9 +64,10 @@ $env:OLLAMA_EMBEDDING_MODEL="nomic-embed-text"
 ```env
 # Ollama Configuration
 AUTH_METHOD=ollama
-OLLAMA_HOST=http://192.168.50.105:11434
+OLLAMA_HOST=http://server.joeloliver.com:11434
 OLLAMA_MODEL=positron3:8b
 OLLAMA_EMBEDDING_MODEL=nomic-embed-text
+OLLAMA_TOKEN=your-auth-token                          # Optional: Bearer token for authentication
 ```
 
 ## Usage
@@ -120,12 +124,12 @@ Any model available in your Ollama server can be used. Common options:
 #### **Linux/macOS:**
 1. **Check Ollama is running**:
    ```bash
-   curl http://192.168.50.105:11434/api/tags
+   curl http://server.joeloliver.com:11434/api/tags
    ```
 
 2. **Test the model**:
    ```bash
-   curl http://192.168.50.105:11434/api/generate -d '{
+   curl http://server.joeloliver.com:11434/api/generate -d '{
      "model": "positron3:8b",
      "prompt": "Hello, world!"
    }'
@@ -135,10 +139,10 @@ Any model available in your Ollama server can be used. Common options:
 1. **Check Ollama is running**:
    ```powershell
    # Using PowerShell (if curl is available)
-   curl http://192.168.50.105:11434/api/tags
+   curl http://server.joeloliver.com:11434/api/tags
    
    # Or using Invoke-RestMethod
-   Invoke-RestMethod -Uri "http://192.168.50.105:11434/api/tags"
+   Invoke-RestMethod -Uri "http://server.joeloliver.com:11434/api/tags"
    ```
 
 2. **Test the model**:
@@ -260,7 +264,10 @@ export OLLAMA_MODEL=llama3.3:7b
 ## Security Considerations
 
 1. **Network Security**: Ensure your Ollama server is only accessible within your intranet
-2. **Authentication**: Consider adding authentication to your Ollama server if needed
+2. **Authentication**: Bearer token authentication is supported via the `OLLAMA_TOKEN` environment variable
+   - If your Ollama server requires authentication, set `OLLAMA_TOKEN` to your bearer token
+   - The token will be sent as `Authorization: Bearer <token>` header with all requests
+   - This is optional - if no token is set, requests will be sent without authentication
 3. **Data Privacy**: All data stays within your network when using Ollama
 
 ## Support
